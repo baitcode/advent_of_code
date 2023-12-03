@@ -2,7 +2,7 @@ use std::{cmp::max, collections::VecDeque, ops::Range, str};
 
 use regex::Regex;
 
-fn filter_adjacent(
+fn sum_adjacent(
     line: &str,
     digits: Vec<Range<usize>>,
     symbols: &VecDeque<Vec<Range<usize>>>,
@@ -56,7 +56,7 @@ pub fn execute(input: String) -> u32 {
             found_symbols.push_back(symbols.find_iter(data).map(|c| c.range()).collect());
         }
 
-        sum += filter_adjacent(previous_line, found_digits, &found_symbols);
+        sum += sum_adjacent(previous_line, found_digits, &found_symbols);
 
         if next_line != None {
             let data = next_line.unwrap();
