@@ -1,9 +1,7 @@
-use std::{collections::HashMap, default, str::FromStr};
+use std::str::FromStr;
 
-fn check_if_game_possible(line: &str) -> Option<usize> {
-    let mut game_description = line.split(":");
-    let game_id = game_description.next().unwrap().get(5..).unwrap();
-    let rounds = game_description.next().unwrap().split(";");
+fn check_if_game_possible(game_description: &str) -> bool {
+    let rounds = game_description.split(";");
 
     for round in rounds {
         let picks = round.split(",");
@@ -19,16 +17,16 @@ fn check_if_game_possible(line: &str) -> Option<usize> {
                 "red" => count_to_check <= 12,
                 "green" => count_to_check <= 13,
                 "blue" => count_to_check <= 14,
-                other => false,
+                _ => false,
             };
 
             if !passed {
-                return None;
+                return false;
             }
         }
     }
 
-    return Some(usize::from_str(game_id).unwrap());
+    return true;
 }
 
 pub fn execute(input: String) -> u32 {
@@ -40,9 +38,11 @@ pub fn execute(input: String) -> u32 {
             break;
         }
 
-        match check_if_game_possible(line.unwrap()) {
-            None => continue,
-            Some(l) => sum += l as u32,
+        let mut game_description = line.unwrap().split(":");
+        let game_id = game_description.next().unwrap().get(5..).unwrap();
+
+        if check_if_game_possible(game_description.next().unwrap()) {
+            sum += u32::from_str(game_id).unwrap();
         }
     }
     return sum;
