@@ -1,13 +1,12 @@
 use std::str::FromStr;
 
 fn check_if_game_possible(game_description: &str) -> bool {
-    let rounds = game_description.split(";");
+    let rounds = game_description.trim().split(";");
 
     for round in rounds {
-        let picks = round.split(",");
+        let picks = round.trim().split(",");
         for pick in picks {
-            let mut ball_pairs = pick.split(" ");
-            ball_pairs.next();
+            let mut ball_pairs = pick.trim().split(" ");
 
             let count_text = ball_pairs.next().unwrap();
             let color = ball_pairs.next().unwrap();
