@@ -7,11 +7,11 @@ fn get_line<'a>(input: &'a str, line_starts: &Vec<usize>, idx: usize) -> &'a str
     return &input[start..end];
 }
 
-trait Zzz {
+trait WithEmptyReplacement {
     fn if_empty_append(&self, val: &str) -> String;
 }
 
-impl Zzz for String {
+impl WithEmptyReplacement for String {
     fn if_empty_append(&self, val: &str) -> String {
         if self.is_empty() {
             return val.to_string();
