@@ -58,8 +58,8 @@ pub fn execute(input: &mut String) -> usize {
                     .if_empty_append("5"),
             )
         })
-        .sorted_by(|(cards1, _, group1), (cards2, _, group2)| {
-            return match str::cmp(group1, group2) {
+        .sorted_by(|(cards1, _, hand1), (cards2, _, hand2)| {
+            return match str::cmp(hand1, hand2) {
                 Ordering::Equal => Iterator::zip(
                     cards1.chars().map(|c| order.find(c).unwrap()),
                     cards2.chars().map(|c| order.find(c).unwrap()),
@@ -73,12 +73,6 @@ pub fn execute(input: &mut String) -> usize {
             };
         })
         .enumerate()
-        // .map(|c| {
-        // if c.1 .0.contains('J') {
-        // println!("{} {} {} {}", c.0, c.1 .1, c.1 .2, c.1 .0);
-        // }
-        // return c;
-        // })
         .map(|(rank, (_, bid, _))| (rank + 1) * bid)
         .sum();
 }
