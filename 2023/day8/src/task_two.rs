@@ -9,6 +9,7 @@ fn get_line<'a>(input: &'a str, line_starts: &Vec<usize>, idx: usize) -> &'a str
     return &input[start..end];
 }
 
+#[inline]
 fn gcd(a: usize, b: usize) -> usize {
     if a == 0 {
         return b;
@@ -16,6 +17,7 @@ fn gcd(a: usize, b: usize) -> usize {
     return gcd(b % a, a);
 }
 
+#[inline]
 fn lcm(a: usize, b: usize) -> usize {
     if a == 0 {
         return b;
@@ -30,7 +32,7 @@ pub fn execute(input: &mut String) -> usize {
 
     let line_starts: Vec<usize> = input.match_indices('\n').map(|i| i.0).collect();
 
-    let mut hash_map: HashMap<&str, Vec<&str>> = HashMap::new();
+    let mut graph: HashMap<&str, Vec<&str>> = HashMap::new();
     let mut idx = 3;
 
     loop {
@@ -39,34 +41,33 @@ pub fn execute(input: &mut String) -> usize {
             break;
         }
 
-        hash_map.insert(&mapping[0..3], vec![&mapping[7..10], &mapping[12..15]]);
+        graph.insert(&mapping[0..3], vec![&mapping[7..10], &mapping[12..15]]);
 
         idx += 1;
     }
 
     let directions = get_line(input, &line_starts, 1);
 
-    let get_steps_count_till_end =
-        |start: &str, directions: &str, hm: &HashMap<&str, Vec<&str>>| {
-            directions
-                .chars()
-                .cycle()
-                .fold_while((start, 0), |(key, idx), el| {
-                    let x = hm[key][(el == 'R') as usize];
-                    if x.ends_with("Z") {
-                        Done((x, idx + 1))
-                    } else {
-                        Continue((x, idx + 1))
-                    }
-                })
-                .into_inner()
-                .1
-        };
+    let get_steps_till_end = |start: &str, directions: &str, hm: &HashMap<&str, Vec<&str>>| {
+        directions
+            .chars()
+            .cycle()
+            .fold_while((start, 0), |(key, idx), el| {
+                let x = hm[key][(el == 'R') as usize];
+                if x.ends_with("Z") {
+                    Done((x, idx + 1))
+                } else {
+                    Continue((x, idx + 1))
+                }
+            })
+            .into_inner()
+            .1
+    };
 
-    let res = hash_map
+    let res = graph
         .keys()
         .filter(|k| k.ends_with("A"))
-        .map(|start| get_steps_count_till_end(start, directions, &hash_map))
+        .map(|start| get_steps_till_end(start, directions, &graph))
         .sorted()
         .reduce(|acc, v| lcm(acc, v))
         .unwrap();
