@@ -1,10 +1,10 @@
-mod task_one;
-mod task_two;
+pub mod task_one;
+pub mod task_two;
 
 use std::fs;
 
-use task_one::execute as execute_one;
-use task_two::execute as execute_two;
+pub use task_one::execute as execute_one;
+pub use task_two::execute as execute_two;
 
 fn main() {
     let contents = fs::read_to_string("input.txt").expect("Should have been able to read the file");
