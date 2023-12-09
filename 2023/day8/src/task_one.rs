@@ -3,6 +3,7 @@ use std::{cmp::max, collections::HashMap};
 use itertools::FoldWhile::{Continue, Done};
 use itertools::Itertools;
 
+#[inline]
 fn get_line<'a>(input: &'a str, line_starts: &Vec<usize>, idx: usize) -> &'a str {
     let start = line_starts[idx - 1] + 1;
     let end = max(line_starts[idx], start);
