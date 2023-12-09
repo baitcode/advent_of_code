@@ -16,7 +16,7 @@ pub fn execute(input: &mut String) -> usize {
 
     let line_starts: Vec<usize> = input.match_indices('\n').map(|i| i.0).collect();
 
-    let mut hash_map = HashMap::new();
+    let mut graph = HashMap::new();
     let mut idx = 3;
 
     loop {
@@ -25,7 +25,7 @@ pub fn execute(input: &mut String) -> usize {
             break;
         }
 
-        hash_map.insert(&mapping[0..3], vec![&mapping[7..10], &mapping[12..15]]);
+        graph.insert(&mapping[0..3], vec![&mapping[7..10], &mapping[12..15]]);
 
         idx += 1;
     }
@@ -34,7 +34,7 @@ pub fn execute(input: &mut String) -> usize {
         .chars()
         .cycle()
         .fold_while(("AAA", 0), |(key, idx), el| {
-            let x = hash_map[key][(el == 'R') as usize];
+            let x = graph[key][(el == 'R') as usize];
             if x == "ZZZ" {
                 Done((x, idx + 1))
             } else {
