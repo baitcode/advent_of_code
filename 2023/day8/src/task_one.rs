@@ -1,4 +1,4 @@
-use std::{char, cmp::max, collections::HashMap};
+use std::{cmp::max, collections::HashMap};
 
 use itertools::FoldWhile::{Continue, Done};
 use itertools::Itertools;
