@@ -30,7 +30,7 @@ pub fn execute(input: &mut String) -> usize {
         idx += 1;
     }
 
-    let (_, count) = get_line(input, &line_starts, 1)
+    return get_line(input, &line_starts, 1)
         .chars()
         .cycle()
         .fold_while(("AAA", 0), |(key, idx), el| {
@@ -41,7 +41,6 @@ pub fn execute(input: &mut String) -> usize {
                 Continue((x, idx + 1))
             }
         })
-        .into_inner();
-
-    return count;
+        .into_inner()
+        .1;
 }

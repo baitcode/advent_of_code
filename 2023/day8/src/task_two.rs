@@ -64,13 +64,11 @@ pub fn execute(input: &mut String) -> usize {
             .1
     };
 
-    let res = graph
+    return graph
         .keys()
         .filter(|k| k.ends_with("A"))
         .map(|start| get_steps_till_end(start, directions, &graph))
         .sorted()
         .reduce(|acc, v| lcm(acc, v))
         .unwrap();
-
-    return res;
 }
