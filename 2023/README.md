@@ -1,0 +1,2 @@
+We had two files of strings, seventy-five pellets of task description, five sheets of high powered iterator library, a salt shaker half full of maps, and a whole galaxy of multi-colored iterator reduces, folds, filters, chains... and also a quart of cycle, a quart of enumerate, a case of sorting, a pint of iterator shirt circuit and two dozen control flow patterns.
+Not that we needed all that for the trip, but once you get locked into a serious item collection, the tendency is to write iterator as long as you can.
