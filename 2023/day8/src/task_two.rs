@@ -32,7 +32,7 @@ pub fn execute(input: &mut String) -> usize {
 
     let line_starts: Vec<usize> = input.match_indices('\n').map(|i| i.0).collect();
 
-    let mut graph: HashMap<&str, Vec<&str>> = HashMap::new();
+    let mut graph = HashMap::new();
     let mut idx = 3;
 
     loop {
