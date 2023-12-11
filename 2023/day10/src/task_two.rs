@@ -120,5 +120,6 @@ pub fn execute(input: &mut String) -> i32 {
         .max()
         .unwrap();
 
+    // Pick theorem
     return area - res_path.len() as i32 / 2 + 1;
 }
